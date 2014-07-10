@@ -16,7 +16,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 executable stickynotes-backend
-  main-is:             Main.hs
+  main-is:             src/Main.hs
   -- other-modules:       
   other-extensions:    OverloadedStrings
   build-depends:       base >=4.6 && <4.7
