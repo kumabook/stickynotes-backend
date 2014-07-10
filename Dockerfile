@@ -11,4 +11,3 @@ EXPOSE 3000
 RUN ["cabal", "sandbox", "init"]
 RUN ["cabal", "install", "--only-dependencies"]
 RUN ["cabal", "build"]
-CMD ["cabal", "run"]
