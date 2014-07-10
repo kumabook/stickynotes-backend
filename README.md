@@ -14,7 +14,7 @@ First, please install haskell-platform.
 And then, run following commands:
 
 ``` shell
-  $cabal sandbox
+  $cabal sandbox init
   $cabal install --only-dependencies
   $cabal build
   $cabal run
