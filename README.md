@@ -17,5 +17,5 @@ And then, run following commands:
   $cabal sandbox
   $cabal install --only-dependencies
   $cabal build
-  $cabal run
+  $PORT=3000 cabal run
 ```
