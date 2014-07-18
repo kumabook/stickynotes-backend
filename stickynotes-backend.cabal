@@ -16,6 +16,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 executable stickynotes-backend
+  hs-source-dirs:      src
   main-is:             Main.hs
   -- other-modules:       
   other-extensions:    OverloadedStrings
@@ -24,18 +25,22 @@ executable stickynotes-backend
                      , warp
                      , http-types
                      , resourcet
-                     , scotty
+                     , scotty == 0.8.1
                      , text
                      , bytestring
                      , blaze-html
-                     , persistent ==1.3.*
-                     , persistent-template ==1.3.*
-                     , persistent-postgresql ==1.3.*
-                     , monad-logger ==0.3.0
+                     , persistent == 1.3.*
+                     , persistent-template == 1.3.*
+                     , persistent-postgresql == 1.3.*
                      , heroku
                      , transformers
                      , wai-middleware-static
                      , wai-extra
                      , time
-  -- hs-source-dirs:      
+                     , mtl
+                     , resourcet
+                     , conduit
+                     , path-pieces
+                     , aeson
+  -- hs-source-dirs:
   default-language:    Haskell2010
