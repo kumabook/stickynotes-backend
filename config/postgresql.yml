@@ -1,0 +1,24 @@
+Default: &defaults
+  user: kumabook
+  password: kumabook
+  host: localhost
+  port: 5432
+  database: stickynotes-backend
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: stickynotes-backend_test
+  <<: *defaults
+
+Staging:
+  database: stickynotes-backend_staging
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: stickynotes-backend_production
+  poolsize: 100
+  <<: *defaults

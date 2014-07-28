@@ -1,0 +1,40 @@
+LOG:  database system was shut down at 2014-07-15 22:54:49 JST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  role "kumabook" already exists
+STATEMENT:  CREATE ROLE kumabook NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+	
+FATAL:  database "stickyinotes" does not exist
+FATAL:  database "kumabook" does not exist
+FATAL:  database "kumabook" does not exist
+ERROR:  role "kumabook" already exists
+STATEMENT:  CREATE ROLE kumabook PASSWORD 'md5ee8c55fba4b3677c4f49d0379bf89334' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+	
+ERROR:  role "[ユーザー名]" does not exist
+STATEMENT:  CREATE DATABASE "[データベース名]" OWNER "[ユーザー名]";
+	
+FATAL:  database "stickyinotes" does not exist
+ERROR:  database "stickynotes" already exists
+STATEMENT:  CREATE DATABASE stickynotes OWNER kumabook;
+	
+ERROR:  database "stickynotes" already exists
+STATEMENT:  CREATE DATABASE stickynotes OWNER kumabook;
+	
+ERROR:  column "created" is of type timestamp without time zone but default expression is of type time with time zone
+HINT:  You will need to rewrite or cast the expression.
+STATEMENT:  CREATe TABLE "user"("id" SERIAL PRIMARY KEY UNIQUE,"email" VARCHAR NOT NULL,"password" VARCHAR NOT NULL,"created" TIMESTAMP NOT NULL DEFAULT CURRENT_TIME,"updated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIME)
+ERROR:  column "now" does not exist
+STATEMENT:  CREATe TABLE "user"("id" SERIAL PRIMARY KEY UNIQUE,"email" VARCHAR NOT NULL,"password" VARCHAR NOT NULL,"created" TIMESTAMP NOT NULL DEFAULT NOW,"updated" TIMESTAMP NOT NULL DEFAULT NOW)
+ERROR:  column "created" is of type timestamp without time zone but default expression is of type time with time zone
+HINT:  You will need to rewrite or cast the expression.
+STATEMENT:  CREATe TABLE "sticky"("id" SERIAL PRIMARY KEY UNIQUE,"user_id" INT8 NOT NULL,"content" VARCHAR NOT NULL,"x" INT8 NOT NULL,"y" INT8 NOT NULL,"width" INT8 NOT NULL,"height" INT8 NOT NULL,"color" VARCHAR NOT NULL,"created" TIMESTAMP NOT NULL DEFAULT CURRENT_TIME,"updated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIME,"page" INT8 NOT NULL)
+ERROR:  database "stickynotes" already exists
+STATEMENT:  CREATE DATABASE stickynotes;
+	
+ERROR:  relation "Page" does not exist
+STATEMENT:  CREATE TABLE "Sticky"("id" SERIAL PRIMARY KEY UNIQUE,"userId" INT8 NOT NULL REFERENCES "User","pageId" INT8 NOT NULL REFERENCES "Page","content" VARCHAR NOT NULL,"x" INT8 NOT NULL,"y" INT8 NOT NULL,"width" INT8 NOT NULL,"height" INT8 NOT NULL,"color" VARCHAR NOT NULL,"created" TIMESTAMP NOT NULL DEFAULT now(),"updated" TIMESTAMP NOT NULL DEFAULT now())
+FATAL:  no pg_hba.conf entry for host "fe80::1%lo0", user "kumabook", database "stickynotes", SSL off
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
