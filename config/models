@@ -9,7 +9,7 @@ Email json
     verkey Text Maybe
     UniqueEmail email
 Sticky json
-    ownerId  UserId
+    user     UserId
     content  Text
     x        Int
     y        Int
@@ -21,10 +21,11 @@ Sticky json
     page     PageId
     deriving Show
 Page json
-    name       Text
-    resourceId ResourceId
-    created    UTCTime default=now()
-    updated    UTCTime default=now()
+    user     UserId
+    name     Text
+    resource ResourceId
+    created  UTCTime default=now()
+    updated  UTCTime default=now()
     deriving Show
 Resource json
     url      Text
@@ -34,7 +35,6 @@ Tag json
     updated  UTCTime default=now()
     deriving Show
 StickyTag
-    stickyId StickyId
-    tagId    TagId
-    UniqueStickyTag stickyId tagId
- -- By default this file is used in Model.hs (which is imported by Foundation.hs)
+    sticky   StickyId
+    tag      TagId
+    UniqueStickyTag sticky tag

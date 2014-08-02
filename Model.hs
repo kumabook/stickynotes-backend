@@ -16,5 +16,7 @@ import Database.Persist.Quasi
 import Data.Typeable (Typeable)
 import Prelude
 
-share [mkPersist sqlOnlySettings, mkMigrate "migrateAll"]
+import SqlSettings
+
+share [mkPersist settings, mkMigrate "migrateAll"]
     $(persistFileWith lowerCaseSettings "config/models")
