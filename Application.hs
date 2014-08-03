@@ -30,6 +30,9 @@ import Yesod.Core.Types (loggerSet, Logger (Logger))
 import Handler.Home
 import Handler.Page
 
+import Helpers.Heroku
+
+
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the
 -- comments there for more details.
@@ -63,9 +66,11 @@ makeFoundation :: AppConfig DefaultEnv Extra -> IO App
 makeFoundation conf = do
     manager <- newManager
     s <- staticSite
-    dbconf <- withYamlEnvironment "config/postgresql.yml" (appEnv conf)
-              Database.Persist.loadConfig >>=
-              Database.Persist.applyEnv
+    dbconf <- if development
+                  then withYamlEnvironment "config/postgresql.yml" (appEnv conf)
+                       Database.Persist.loadConfig >>=
+                       Database.Persist.applyEnv
+                  else herokuConf
     p <- Database.Persist.createPoolConfig (dbconf :: Settings.PersistConf)
 
     loggerSet' <- newStdoutLoggerSet defaultBufSize

@@ -22,6 +22,7 @@ library
                      Handler.Home
                      Handler.Page
                      SqlSettings
+                     Helpers.Heroku
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -71,6 +72,8 @@ library
                  , wai-logger                    >= 2.1        && < 2.2
                  , time
                  , esqueleto
+                 , heroku
+                 , unordered-containers
 
 executable         stickynotes-backend
     if flag(library-only)
