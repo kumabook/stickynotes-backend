@@ -1,0 +1,39 @@
+h1 = "Listing stickies"
+
+table
+  thead
+    tr
+      th Content
+      th Color
+      th Width
+      th Height
+      th Left
+      th Top
+      th Page
+      th Tags
+      th Created at
+      th Updated at
+      th Is deleted
+  tbody
+    - @stickies.each do |sticky|
+      tr
+        td = sticky.content
+        td = sticky.color
+        td = sticky.width
+        td = sticky.height
+        td = sticky.left
+        td = sticky.top
+        td = sticky.page.url
+        td
+          - sticky.tags.each do |t|
+            = link_to t.name, t
+        td = sticky.created_at
+        td = sticky.updated_at
+        td = sticky.is_deleted
+        td = link_to 'Show', sticky
+        td = link_to 'Edit', edit_sticky_path(sticky)
+        td = link_to 'Destroy', sticky,  method: :delete,
+                                           data: { confirm: 'Are you sure?' }
+
+br
+= link_to 'New Sticky', new_sticky_path

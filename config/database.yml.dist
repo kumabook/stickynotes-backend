@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: stickynotes_backend_development_<%=
+    `git symbolic-ref --short HEAD`
+  %>
+test:
+  <<: *default
+  database: stickynotes_backend_test
+
+production:
+  <<: *default
+  database: stickynotes_backend_production
+  username: stickynotes_backend
+  password: <%= ENV['STICKYNOTESBACKEND_DATABASE_PASSWORD'] %>
+

@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong Content
+  = @sticky.content
+p
+  strong Color
+  = @sticky.color
+p
+  strong Width
+  = @sticky.width
+p
+  strong Height
+  = @sticky.height
+p
+  strong Left
+  = @sticky.left
+p
+  strong Top
+  = @sticky.top
+p
+  strong Page
+  = @sticky.page.url
+p
+  strong Is deleted
+  = @sticky.is_deleted
+p
+  strong Created at
+  = @sticky.created_at
+p
+  strong Updated at
+  = @sticky.updated_at
+
+= link_to 'Edit', edit_sticky_path(@sticky)
+'|
+= link_to 'Back', :back

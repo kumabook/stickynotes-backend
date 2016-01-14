@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  width: 1
+  height: 1
+  left: 1
+  top: 1
+  content: MyText
+  page_id: 1
+
+two:
+  title: MyString
+  width: 1
+  height: 1
+  left: 1
+  top: 1
+  content: MyText
+  page_id: 1

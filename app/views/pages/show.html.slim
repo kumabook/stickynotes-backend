@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Title
+  = @page.title
+p
+  strong URL
+  = @page.url
+p
+  strong Created at
+  = @page.created_at
+p
+  strong Updated at
+  = @page.updated_at
+
+= link_to 'Edit', edit_page_path(@page)
+'|
+= link_to 'Back', :back

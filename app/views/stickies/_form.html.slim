@@ -1,0 +1,38 @@
+= form_for(@sticky) do |f|
+  - if @sticky.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@sticky.errors.count, "error")} prohibited this sticky from being saved:"
+
+      ul
+        - @sticky.errors.full_messages.each do |message|
+          li = message
+  .field
+    = f.label :content
+    br
+    = f.text_area :content
+  .field
+    = f.label :color
+    br
+    = f.text_field :color
+  .field
+    = f.label :page
+    br
+    = f.collection_select :page_id, Page.where(user: @sticky.user), :id, :url
+  .field
+    = f.label :width
+    br
+    = f.number_field :width
+  .field
+    = f.label :height
+    br
+    = f.number_field :height
+  .field
+    = f.label :left
+    br
+    = f.number_field :left
+  .field
+    = f.label :top
+    br
+    = f.number_field :top
+  .actions
+    = f.submit
