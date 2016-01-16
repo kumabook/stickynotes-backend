@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   root :to => 'user_sessions#new'
   resources :user_sessions
   resources :users
+  resources :password_resets
   resources :stickies, except: :create
   resources :pages do
     resources :stickies
