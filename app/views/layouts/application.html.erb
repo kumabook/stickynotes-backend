@@ -12,10 +12,8 @@
       <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
       <%= link_to "Logout", :logout, method: :post %>
     <% else %>
-      <%= link_to "Register", new_user_path %> |
-      <%= link_to "Login", :login %> |
-      <%= link_to 'Login with Twitter', auth_at_provider_path(:provider => :twitter) %> |
-      <%= link_to 'Login with github', auth_at_provider_path(:provider => :github) %>
+      <%= link_to "Sign up", new_user_path %> |
+      <%= link_to "Login", :login %>
     <% end %>
    </div>
    <div>
