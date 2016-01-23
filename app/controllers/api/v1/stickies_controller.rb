@@ -23,10 +23,10 @@ class Api::V1::StickiesController < Api::V1::ApiController
       page = Page.find_or_create_by url: s['url'],
                                     title: s['title'],
                                     user_id: user.id
-      sticky = Sticky.find_or_create_by(id: s['id'],
+      sticky = Sticky.find_or_create_by uuid: s['uuid'],
                                         page_id: page.id,
-                                        user_id: user.id)
-      sticky.update_attributes(page_id: page.id,
+                                        user_id: user.id
+      sticky.update_attributes page_id: page.id,
                                user_id: user.id,
                                color: s['color'],
                                content: s['content'],
@@ -34,7 +34,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
                                height: s['height'],
                                left: s['left'],
                                top: s['top'],
-                               is_deleted: s['is_deleted'])
+                               is_deleted: s['is_deleted']
       sticky
     }
     respond_to do |format|
@@ -51,6 +51,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
   private
   def stickies_params
     params.permit(stickies: [:id,
+                             :uuid,
                              :content,
                              :width,
                              :height,

@@ -1,6 +1,7 @@
 class CreateStickies < ActiveRecord::Migration
   def change
-    create_table :stickies, id: :uuid do |t|
+    create_table :stickies do |t|
+      t.uuid    :uuid,       :null => false, :default => 'uuid_generate_v4()'
       t.integer :width,      :null => false, :default => 0
       t.integer :height,     :null => false, :default => 0
       t.integer :left,       :null => false, :default => 0
@@ -12,6 +13,7 @@ class CreateStickies < ActiveRecord::Migration
       t.boolean :is_deleted, :null => false, :default => false
 
       t.timestamps null: false
+      t.index [:user_id, :uuid], :unique => true
     end
   end
 end

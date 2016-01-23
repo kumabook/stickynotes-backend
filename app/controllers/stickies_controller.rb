@@ -71,26 +71,27 @@ class StickiesController < ApplicationController
   end
 
   private
-    def sticky_params
-      params.permit(:sticky).permit(:content,
-                                     :width,
-                                     :height,
-                                     :left,
-                                     :top,
-                                     :page_id)
-    end
 
-    def set_sticky
-      @sticky  = Sticky.includes(:user).find_by(id: params[:id])
-      if @sticky.nil?
-        render_not_found
-      end
-    end
+  def sticky_params
+    params.require(:sticky).permit(:content,
+                                   :width,
+                                   :height,
+                                   :left,
+                                   :top,
+                                   :page_id)
+  end
 
-    def set_page
-      if params[:page_id]
-        @page = Page.find_by(id: params[:page_id])
-        render_not_found if @page.nil?
-      end
+  def set_sticky
+    @sticky  = Sticky.includes(:user).find_by(id: params[:id])
+    if @sticky.nil?
+      render_not_found
     end
+  end
+
+  def set_page
+    if params[:page_id]
+      @page = Page.find_by(id: params[:page_id])
+      render_not_found if @page.nil?
+    end
+  end
 end
