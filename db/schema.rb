@@ -86,22 +86,25 @@ ActiveRecord::Schema.define(version: 20160116061907) do
 
   add_index "pages", ["url", "user_id"], name: "by_url_each_user", unique: true, using: :btree
 
-  create_table "stickies", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "width",      default: 0,      null: false
-    t.integer  "height",     default: 0,      null: false
-    t.integer  "left",       default: 0,      null: false
-    t.integer  "top",        default: 0,      null: false
-    t.text     "content",    default: "",     null: false
-    t.string   "color",      default: "blue", null: false
-    t.integer  "page_id",                     null: false
-    t.integer  "user_id",                     null: false
-    t.boolean  "is_deleted", default: false,  null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+  create_table "stickies", force: :cascade do |t|
+    t.uuid     "uuid",       default: "uuid_generate_v4()"
+    t.integer  "width",      default: 0,                    null: false
+    t.integer  "height",     default: 0,                    null: false
+    t.integer  "left",       default: 0,                    null: false
+    t.integer  "top",        default: 0,                    null: false
+    t.text     "content",    default: "",                   null: false
+    t.string   "color",      default: "blue",               null: false
+    t.integer  "page_id",                                   null: false
+    t.integer  "user_id",                                   null: false
+    t.boolean  "is_deleted", default: false,                null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
+  add_index "stickies", ["user_id", "uuid"], name: "index_stickies_on_user_id_and_uuid", unique: true, using: :btree
+
   create_table "sticky_tags", force: :cascade do |t|
-    t.uuid     "sticky_id"
+    t.integer  "sticky_id"
     t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

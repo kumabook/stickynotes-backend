@@ -23,7 +23,7 @@ table
         td = sticky.height
         td = sticky.left
         td = sticky.top
-        td = sticky.page.url
+        td = link_to sticky.page.title, sticky.page
         td
           - sticky.tags.each do |t|
             = link_to t.name, t
