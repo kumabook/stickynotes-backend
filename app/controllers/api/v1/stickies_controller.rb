@@ -35,7 +35,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
                                left: s['left'],
                                top: s['top'],
                                is_deleted: s['is_deleted']
-      s['tags'].each do |name|
+      s['tags'] && s['tags'].each do |name|
         tag = Tag.find_or_create_by name: name,
                                     user_id: user.id
         sticky_tag = StickyTag.find_or_create_by sticky_id: sticky.id,
