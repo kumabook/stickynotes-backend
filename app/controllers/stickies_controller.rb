@@ -1,19 +1,23 @@
 class StickiesController < ApplicationController
   before_action :require_login
   before_action :set_sticky, only: [:show, :edit, :update, :destroy]
-  before_action :set_page
+  before_action :set_page, only: [:index]
+  before_action :set_tag,  only: [:index]
 
   def show
   end
 
   def index
-    if @page.nil?
+    if @tag.present?
+      @stickies = @tag.stickies
+    elsif @page.present?
       @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: current_user)
+                        .where(user: current_user, page: @page.id)
     else
       @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(page: @page.id)
+                        .where(user: current_user)
     end
+    @stickies = [] if @stickies.nil?
   end
 
   def create
@@ -54,7 +58,9 @@ class StickiesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @sticky.update(sticky_params)
+      hash = sticky_params
+      hash['tags'] = hash['tags'].map {|t| Tag.find_by(id: t)}.compact
+      if @sticky.update(hash)
         format.html {
           redirect_to sticky_path(@sticky),
           notice: 'Sticky was successfully updated.'
@@ -78,7 +84,9 @@ class StickiesController < ApplicationController
                                    :height,
                                    :left,
                                    :top,
-                                   :page_id)
+                                   :page_id,
+                                   :color,
+                                   tags: [])
   end
 
   def set_sticky
@@ -92,6 +100,13 @@ class StickiesController < ApplicationController
     if params[:page_id]
       @page = Page.find_by(id: params[:page_id])
       render_not_found if @page.nil?
+    end
+  end
+
+  def set_tag
+    if params[:tag_id]
+      @tag = Tag.find_by(id: params[:tag_id])
+      render_not_found if @tag.nil?
     end
   end
 end

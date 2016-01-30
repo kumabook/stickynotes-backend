@@ -1,4 +1,4 @@
-= form_for(@page) do |f|
+= form_for @page, html: { class: 'pure-form'} do |f|
   - if @page.errors.any?
     #error_explanation
       h2 = "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
@@ -9,10 +9,10 @@
   .field
     = f.label :title
     br
-    = f.text_field :title
+    = f.text_field :title, size: 70
   .field
     = f.label :url
     br
-    = f.text_field :url
+    = f.text_field :url, size: 70
   .actions
-    = f.submit
+    = f.submit class: 'pure-button'

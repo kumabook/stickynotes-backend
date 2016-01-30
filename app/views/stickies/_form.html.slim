@@ -1,4 +1,4 @@
-= form_for(@sticky) do |f|
+= form_for @sticky, html: { class: 'pure-form' } do |f|
   - if @sticky.errors.any?
     #error_explanation
       h2 = "#{pluralize(@sticky.errors.count, "error")} prohibited this sticky from being saved:"
@@ -17,7 +17,11 @@
   .field
     = f.label :page
     br
-    = f.collection_select :page_id, Page.where(user: @sticky.user), :id, :url
+    = f.collection_select :page_id,
+                          Page.where(user: @sticky.user),
+                          :id,
+                          :url,
+                          selected: @sticky.page.id
   .field
     = f.label :width
     br
@@ -34,5 +38,15 @@
     = f.label :top
     br
     = f.number_field :top
+  .field
+    = f.label :tags
+    br
+    = f.collection_select :tags,
+                          Tag.where(user: @sticky.user),
+                          :id,
+                          :name,
+                          { selected: @sticky.tags.map {|t| t.id}},
+                          multiple: true
+
   .actions
-    = f.submit
+    = f.submit class: 'pure-button'

@@ -8,15 +8,17 @@ Rails.application.routes.draw do
     end
   end
 
-  root :to => 'user_sessions#new'
+  root :to => 'stickies#index'
   resources :user_sessions
   resources :users
   resources :password_resets
   resources :stickies, except: :create
-  resources :pages do
+  resources :pages, except: :destroy do
     resources :stickies
   end
-  resources :tags
+  resources :tags, only: :index do
+    resources :stickies, only: :index
+  end
 
   get 'oauths/oauth'
   get 'oauths/callback'

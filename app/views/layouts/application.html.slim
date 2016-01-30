@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+html
+  head
+    title StickyNotes
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    .pure-menu-horizontal.pure-menu
+      ul.pure-menu-list
+        li.pure-menu-item
+          = link_to "StickyNotes", :stickies, class: 'pure-menu-link'
+        - if current_user
+          - if current_user.admin?
+            li.pure-menu-item
+              = link_to "Application", oauth_applications_path, class: 'pure-menu-link '
+          li.pure-menu-item
+            = link_to "Edit Profile", edit_user_path(current_user.id), class: 'pure-menu-link'
+          li.pure-menu-item
+            = link_to "Logout", :logout, method: :post, class: 'pure-menu-link'
+        - else
+          li.pure-menu-item
+            = link_to "Sign up", new_user_path, class: 'pure-menu-link'
+          li.pure-menu-item
+            = link_to "Login", :login, class: 'pure-menu-link'
+    .pure-g
+      .pure-u-1-24
+      .pure-u-11-12
+        p#notice = flash[:notice]
+        p#alert  = flash[:alert]
+    .pure-g
+      .pure-u-1-24
+      .pure-u-11-12
+        = yield

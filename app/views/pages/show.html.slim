@@ -1,18 +1,16 @@
-p#notice = notice
+h1 Page detail
+table.pure-table.pure-table-bordered
+  thead
+    tr
+      th Key
+      th Value
+  tbody
+    tr
+      th Title
+      th = @page.title.truncate(50)
+    tr
+      th URL
+      th = link_to @page.url.truncate(50), @page.url
 
-p
-  strong Title
-  = @page.title
-p
-  strong URL
-  = @page.url
-p
-  strong Created at
-  = @page.created_at
-p
-  strong Updated at
-  = @page.updated_at
-
-= link_to 'Edit', edit_page_path(@page)
-'|
-= link_to 'Back', :back
+= link_to 'Stickies', page_stickies_path(@page), class: 'pure-button'
+= link_to 'Edit',     edit_page_path(@page), class: 'pure-button'

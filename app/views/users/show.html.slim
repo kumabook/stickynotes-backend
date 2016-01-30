@@ -1,7 +1,13 @@
-p
-  strong Email:
-  = @user.email
+h1 Your profile
+table.pure-table.pure-table-bordered
+  thead
+    tr
+      th Key
+      th Value
+  tbody
+    tr
+      td Email
+      td = @user.email
 
-= link_to 'Edit', edit_user_path(@user)
-'|
-= link_to 'Back', users_path
+p = link_to 'Edit', edit_user_path(@user), class: 'pure-button'
+p = link_to 'Back', :back, class: 'pure-button'

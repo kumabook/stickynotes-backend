@@ -1,39 +1,29 @@
-h1 = "Listing stickies"
+- if @tag.present?
+  h1 = "Stickies of tag: #{@tag.name}"
+- elsif @page.present?
+  h1 = "Stickies of page: #{@page.title}"
+- else
+  h1 Your Stickies
 
-table
+table.pure-table
   thead
     tr
       th Content
       th Color
-      th Width
-      th Height
-      th Left
-      th Top
       th Page
       th Tags
-      th Created at
       th Updated at
-      th Is deleted
+      th
   tbody
     - @stickies.each do |sticky|
-      tr
+      tr class=(sticky.is_deleted ? 'pure-table-odd' : '')
         td = sticky.content
         td = sticky.color
-        td = sticky.width
-        td = sticky.height
-        td = sticky.left
-        td = sticky.top
-        td = link_to sticky.page.title, sticky.page
+        td = link_to sticky.page.title.truncate(40), sticky.page
         td
           - sticky.tags.each do |t|
-            = link_to t.name, t
-        td = sticky.created_at
+            = link_to t.name, tag_stickies_path(t)
         td = sticky.updated_at
-        td = sticky.is_deleted
-        td = link_to 'Show', sticky
-        td = link_to 'Edit', edit_sticky_path(sticky)
-        td = link_to 'Destroy', sticky,  method: :delete,
-                                           data: { confirm: 'Are you sure?' }
-
+        td = link_to 'Detail', sticky
 br
-= link_to 'New Sticky', new_sticky_path
+= link_to 'New Sticky', new_sticky_path, class: 'pure-button'

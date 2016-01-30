@@ -1,36 +1,45 @@
-p#notice = notice
+h1 Sticky detail
+table.pure-table.pure-table-bordered
+  thead
+    tr
+      th Key
+      th Value
+  tbody
+    tr
+      td Content
+      td = @sticky.content
+    tr
+      td Color
+      td = @sticky.color
+    tr
+      td Width
+      td = @sticky.width
+    tr
+      td Height
+      td = @sticky.height
+    tr
+      td  Left
+      td = @sticky.left
+    tr
+      td Top
+      td = @sticky.top
+    tr
+      td Page
+      td = @sticky.page.url
+    tr
+      td Is deleted
+      td = @sticky.is_deleted
+    tr
+      td Updated at
+      td = @sticky.updated_at
+    tr
+      td Tags
+      td
+        - @sticky.tags.each do |tag|
+          = link_to tag.name, tag_stickies_path(tag)
 
 p
-  strong Content
-  = @sticky.content
-p
-  strong Color
-  = @sticky.color
-p
-  strong Width
-  = @sticky.width
-p
-  strong Height
-  = @sticky.height
-p
-  strong Left
-  = @sticky.left
-p
-  strong Top
-  = @sticky.top
-p
-  strong Page
-  = @sticky.page.url
-p
-  strong Is deleted
-  = @sticky.is_deleted
-p
-  strong Created at
-  = @sticky.created_at
-p
-  strong Updated at
-  = @sticky.updated_at
-
-= link_to 'Edit', edit_sticky_path(@sticky)
-'|
-= link_to 'Back', :back
+  = link_to 'Edit', edit_sticky_path(@sticky), class: 'pure-button'
+  = link_to 'Destroy', @sticky,  method: :delete,
+                                   data: { confirm: 'Are you sure?' },
+                                  class: 'pure-button'

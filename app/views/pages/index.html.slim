@@ -1,22 +1,15 @@
 h1 Listing Pages
 
-table
+table.pure-table
   thead
     tr
       th Title
       th URL
-      th created at
-      th updated at
   tbody
     - @pages.each do |page|
       tr
-        td = page.title
-        td = page.url
-        td = page.created_at
-        td = page.updated_at
+        td = page.title.truncate(50)
+        td = link_to page.url.truncate(15), page.url
         td = link_to 'Stickies', page_stickies_path(page)
         td = link_to 'Edit', edit_page_path(page)
-        td = link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' }
 
-br
-= link_to 'New Page', new_page_path
