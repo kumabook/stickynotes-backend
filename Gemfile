@@ -21,6 +21,7 @@ gem 'doorkeeper'
 gem 'sorcery'
 
 gem 'newrelic_rpm'
+gem 'purecss-rails'
 
 group :development, :test do
   gem 'byebug'
