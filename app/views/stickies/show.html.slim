@@ -26,9 +26,10 @@ table.pure-table.pure-table-bordered
     tr
       td Page
       td = @sticky.page.url
-    tr
-      td Is deleted
-      td = @sticky.is_deleted
+    - if current_user.admin?
+        tr
+          td Is deleted
+          td = @sticky.is_deleted
     tr
       td Updated at
       td = @sticky.updated_at

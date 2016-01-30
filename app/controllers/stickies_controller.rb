@@ -46,7 +46,11 @@ class StickiesController < ApplicationController
   end
 
   def destroy
-    @sticky.destroy
+    if current_user.admin?
+      @sticky.destroy
+    else
+      @sticky.update is_deleted: true
+    end
     respond_to do |format|
       format.html {
         redirect_to stickies_path(@sticky.user),
