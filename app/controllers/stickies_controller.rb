@@ -3,6 +3,7 @@ class StickiesController < ApplicationController
   before_action :set_sticky, only: [:show, :edit, :update, :destroy]
   before_action :set_page, only: [:index]
   before_action :set_tag,  only: [:index]
+  before_action :set_user, only: [:index]
 
   def show
   end
@@ -12,10 +13,10 @@ class StickiesController < ApplicationController
       @stickies = @tag.stickies
     elsif @page.present?
       @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: current_user, page: @page.id)
+                        .where(user: @user, page: @page)
     else
       @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: current_user)
+                        .where(user: @user)
     end
     @stickies = [] if @stickies.nil?
   end
@@ -47,13 +48,28 @@ class StickiesController < ApplicationController
 
   def destroy
     if current_user.admin?
-      @sticky.destroy
+      physical_destroy
     else
-      @sticky.update is_deleted: true
+      logical_destroy
     end
+  end
+
+  def logical_destroy
+    @sticky.update is_deleted: true
     respond_to do |format|
       format.html {
         redirect_to stickies_path(@sticky.user),
+        notice: 'Sticky was successfully destroyed.'
+      }
+      format.json { head :no_content }
+    end
+  end
+
+  def physical_destroy
+    @sticky.destroy
+    respond_to do |format|
+      format.html {
+        redirect_to user_stickies_path(@sticky.user),
         notice: 'Sticky was successfully destroyed.'
       }
       format.json { head :no_content }
@@ -111,6 +127,16 @@ class StickiesController < ApplicationController
     if params[:tag_id]
       @tag = Tag.find_by(id: params[:tag_id])
       render_not_found if @tag.nil?
+    end
+  end
+
+  def set_user
+    if params[:user_id]
+      @user = User.find_by(id: params[:user_id])
+      render_not_found if @user.nil?
+      render_forbidden if !current_user.admin? && @user != current_user
+    else
+      @user = current_user
     end
   end
 end

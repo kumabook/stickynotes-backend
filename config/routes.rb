@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   root :to => 'stickies#index'
   resources :user_sessions
-  resources :users
+  resources :users do
+    resources :stickies, only: :index
+  end
   resources :password_resets
   resources :stickies, except: :create
   resources :pages, except: :destroy do
