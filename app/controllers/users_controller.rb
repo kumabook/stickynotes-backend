@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.map {|u| u.becomes(User)}
+    @users = User.bonzo(params[:bonzo])
   end
 
   # GET /users/1

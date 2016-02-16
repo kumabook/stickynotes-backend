@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :stickies
   has_many :tags
   has_many :pages
+  paginates_per 20
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes["password"] }
   validates :password, confirmation: true, if: -> { new_record? || changes["password"] }

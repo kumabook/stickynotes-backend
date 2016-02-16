@@ -1,5 +1,6 @@
 h1 Listing users
 
+= paginate @users
 table.pure-table
   thead
     tr
@@ -15,10 +16,10 @@ table.pure-table
       tr
         td = user.email
         td = user.type
-        th = link_to 'Stickies', user_stickies_path(user)
-        td = link_to 'Show', user
+        th = link_to "Stickies(#{user.stickies.size})", user_stickies_path(user)
+        td = link_to 'Show', user.becomes(User)
         td = link_to 'Edit', edit_user_path(user)
-        td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', user.becomes(User), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
