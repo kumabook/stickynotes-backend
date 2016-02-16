@@ -19,6 +19,7 @@ gem 'responders', '~> 2.0'
 
 gem 'doorkeeper'
 gem 'sorcery'
+gem 'kaminari'
 
 gem 'newrelic_rpm'
 gem 'purecss-rails'

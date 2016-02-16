@@ -10,13 +10,18 @@ class StickiesController < ApplicationController
 
   def index
     if @tag.present?
-      @stickies = @tag.stickies
+      @stickies = @tag.stickies.bonzo(params[:bonzo])
     elsif @page.present?
       @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: @user, page: @page)
+                        .where(user: @user, page: @page).bonzo(params[:bonzo])
     else
-      @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: @user)
+      if current_user.admin?
+        @stickies = Sticky.newer_than(params[:newer_than])
+                          .where(user: @user).bonzo(params[:bonzo])
+      else
+        @stickies = Sticky.newer_than(params[:newer_than])
+                          .where(user: @user, is_deleted: false).bonzo(params[:bonzo])
+      end
     end
     @stickies = [] if @stickies.nil?
   end
