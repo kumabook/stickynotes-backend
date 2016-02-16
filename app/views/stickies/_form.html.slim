@@ -21,7 +21,7 @@
                           Page.where(user: @sticky.user),
                           :id,
                           :url,
-                          selected: @sticky.page.id
+                          selected: @sticky.page.present? && @sticky.page.id
   .field
     = f.label :width
     br

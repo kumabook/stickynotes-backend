@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :stickies, only: :index
   end
   resources :password_resets
-  resources :stickies, except: :create
+  resources :stickies
   resources :pages, except: :destroy do
     resources :stickies
   end

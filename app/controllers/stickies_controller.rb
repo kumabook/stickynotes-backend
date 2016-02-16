@@ -27,7 +27,9 @@ class StickiesController < ApplicationController
   end
 
   def create
-    @sticky = Sticky.new(sticky_params)
+    hash = sticky_params
+    hash['tags'] = hash['tags'].map {|t| Tag.find_by(id: t)}.compact
+    @sticky = Sticky.new(hash)
     @sticky.user = current_user
 
     respond_to do |format|
@@ -111,6 +113,7 @@ class StickiesController < ApplicationController
                                    :top,
                                    :page_id,
                                    :color,
+                                   :tags,
                                    tags: [])
   end
 
