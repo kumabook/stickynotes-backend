@@ -7,6 +7,7 @@ table.pure-table
     tr
       th Email
       th Type
+      th Registration date
       th
       th
       th
@@ -17,6 +18,7 @@ table.pure-table
       tr
         td = user.email
         td = user.type
+        td = user.created_at
         th = link_to "Stickies(#{user.stickies.size})", user_stickies_path(user)
         td = link_to 'Show', user.becomes(User)
         td = link_to 'Edit', edit_user_path(user)
