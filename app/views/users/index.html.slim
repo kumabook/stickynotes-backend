@@ -19,7 +19,7 @@ table.pure-table
         td = user.email
         td = user.type
         td = user.created_at
-        th = link_to "Stickies(#{user.stickies.size})", user_stickies_path(user)
+        th = "#{user.stickies.size} stickies"
         td = link_to 'Show', user.becomes(User)
         td = link_to 'Edit', edit_user_path(user)
         td = link_to 'Destroy', user.becomes(User), data: {:confirm => 'Are you sure?'}, :method => :delete
