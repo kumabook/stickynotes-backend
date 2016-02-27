@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @stickies_count = Sticky.count
     @users = User.bonzo(params[:bonzo])
   end
 
