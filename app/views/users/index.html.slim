@@ -12,6 +12,7 @@ table.pure-table
       th
       th
       th
+      th
 
   tbody
     - @users.each do |user|
@@ -19,7 +20,8 @@ table.pure-table
         td = user.email
         td = user.type
         td = user.created_at
-        th = "#{user.stickies.size} stickies"
+        td = "#{user.stickies.size} stickies"
+        td = "#{user.oauth_access_tokens.size} tokens"
         td = link_to 'Show', user.becomes(User)
         td = link_to 'Edit', edit_user_path(user)
         td = link_to 'Destroy', user.becomes(User), data: {:confirm => 'Are you sure?'}, :method => :delete

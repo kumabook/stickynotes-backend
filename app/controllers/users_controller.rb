@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @stickies_count = Sticky.count
-    @users = User.bonzo(params[:bonzo])
+    @users = User.bonzo(params[:bonzo]).includes(:oauth_access_tokens)
   end
 
   # GET /users/1
