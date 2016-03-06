@@ -6,6 +6,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
     if @page.nil?
       @stickies = Sticky.newer_than(params[:newer_than])
                         .where(user: current_resource_owner)
+      logger.info("User(id=#{current_resource_owner.id}) fetches #{@stickies.size} stickies.")
     else
       @stickies = Sticky.newer_than(params[:newer_than])
                         .where(page: @page.id)
@@ -18,6 +19,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
 
   def import
     stickies = stickies_params["stickies"].present? ? stickies_params["stickies"] : []
+    logger.info("User(id=#{current_resource_owner.id}) imports #{stickies.size} stickies.")
     @stickies = stickies.map do |s|
       user = current_resource_owner
       page = Page.find_or_create_by url: s['url'],
