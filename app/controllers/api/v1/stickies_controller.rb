@@ -23,8 +23,9 @@ class Api::V1::StickiesController < Api::V1::ApiController
     @stickies = stickies.map do |s|
       user = current_resource_owner
       page = Page.find_or_create_by url: s['url'],
-                                    title: s['title'],
-                                    user_id: user.id
+                                    user_id: user.id do |p|
+        p.title = s['title']
+      end
       sticky = Sticky.find_or_create_by uuid: s['uuid'],
                                         page_id: page.id,
                                         user_id: user.id
