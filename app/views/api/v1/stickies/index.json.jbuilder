@@ -9,10 +9,11 @@ json.array!(@stickies) do |sticky|
                 :page,
                 :tags,
                 :user_id,
-                :is_deleted,
                 :updated_at, :created_at
-  json.url sticky.page.url
-  json.title sticky.page.title
-  json.tags sticky.tags.map {|t| t.name}
+  json.state      Sticky.states[sticky.state]
+  json.is_deleted sticky.deleted?
+  json.url        sticky.page.url
+  json.title      sticky.page.title
+  json.tags       sticky.tags.map {|t| t.name}
 end
 

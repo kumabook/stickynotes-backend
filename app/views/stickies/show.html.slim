@@ -24,12 +24,15 @@ table.pure-table.pure-table-bordered
       td Top
       td = @sticky.top
     tr
+      td State
+      td = @sticky.state
+    tr
       td Page
       td = @sticky.page.url
     - if current_user.admin?
         tr
-          td Is deleted
-          td = @sticky.is_deleted
+          td State
+          td = @sticky.state
     tr
       td Updated at
       td = @sticky.updated_at

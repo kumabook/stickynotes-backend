@@ -39,6 +39,10 @@
     br
     = f.number_field :top
   .field
+    = f.label :state
+    br
+    = f.select :state, Sticky.states.keys.to_a, {}, class: 'form-control'
+  .field
     = f.label :tags
     br
     = f.collection_select :tags,

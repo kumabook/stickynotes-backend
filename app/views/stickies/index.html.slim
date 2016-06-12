@@ -17,8 +17,8 @@ table.pure-table
       th
   tbody
     - @stickies.each do |sticky|
-      - next if sticky.is_deleted && !current_user.admin?
-      tr class=(sticky.is_deleted ? 'pure-table-odd' : '')
+      - next if sticky.deleted? && !current_user.admin?
+      tr class=(sticky.deleted? ? 'pure-table-odd' : '')
         td = sticky.content
         td = sticky.color
         td = link_to sticky.page.title.truncate(40), sticky.page

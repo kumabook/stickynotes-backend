@@ -20,6 +20,8 @@ class Api::V1::StickiesController < Api::V1::ApiController
   def import
     stickies = stickies_params["stickies"].present? ? stickies_params["stickies"] : []
     logger.info("User(id=#{current_resource_owner.id}) imports #{stickies.size} stickies.")
+    deleted = Sticky.states[:deleted]
+    normal  = Sticky.states[:normal]
     @stickies = stickies.map do |s|
       user = current_resource_owner
       page = Page.find_or_create_by url: s['url'],
@@ -29,6 +31,10 @@ class Api::V1::StickiesController < Api::V1::ApiController
       sticky = Sticky.find_or_create_by uuid: s['uuid'],
                                         page_id: page.id,
                                         user_id: user.id
+      state = s['state']
+      if state.nil?
+        state = s['is_deleted'] ? deleted : normal
+      end
       sticky.update_attributes page_id: page.id,
                                user_id: user.id,
                                color: s['color'],
@@ -37,7 +43,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
                                height: s['height'],
                                left: s['left'],
                                top: s['top'],
-                               is_deleted: s['is_deleted']
+                               state: state
       s['tags'] && s['tags'].each do |name|
         tag = Tag.find_or_create_by name: name,
                                     user_id: user.id
@@ -73,6 +79,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
                              :created_at,
                              :updated_at,
                              :user_id,
+                             :state,
                              :is_deleted,
                              tags: []])
   end

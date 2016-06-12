@@ -1,4 +1,5 @@
 class Sticky < ActiveRecord::Base
+  enum state: { normal: 0, deleted: 1, minimized: 2 }
   belongs_to :user
   belongs_to :page
   has_many :sticky_tags

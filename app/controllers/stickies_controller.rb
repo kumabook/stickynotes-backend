@@ -20,7 +20,7 @@ class StickiesController < ApplicationController
                           .where(user: @user).bonzo(params[:bonzo])
       else
         @stickies = Sticky.newer_than(params[:newer_than])
-                          .where(user: @user, is_deleted: false).bonzo(params[:bonzo])
+                          .where(user: @user).bonzo(params[:bonzo])
       end
     end
     @stickies = [] if @stickies.nil?
@@ -62,7 +62,7 @@ class StickiesController < ApplicationController
   end
 
   def logical_destroy
-    @sticky.update is_deleted: true
+    @sticky.update state: Sticky.states[:deleted]
     respond_to do |format|
       format.html {
         redirect_to stickies_path(@sticky.user),
@@ -114,6 +114,7 @@ class StickiesController < ApplicationController
                                    :page_id,
                                    :color,
                                    :tags,
+                                   :state,
                                    tags: [])
   end
 

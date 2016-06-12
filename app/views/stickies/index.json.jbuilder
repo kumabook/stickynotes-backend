@@ -7,8 +7,9 @@ json.array!(@stickies) do |sticky|
                 :left, :top,
                 :page,
                 :user_id,
-                :is_deleted,
+                :state,
                 :updated_at, :created_at
+  json.is_deleted sticky.deleted?
   json.url sticky.page.url
   json.title sticky.page.title
   json.tags sticky.tags.map {|t| t.name}
