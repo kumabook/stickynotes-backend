@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160116061907) do
+ActiveRecord::Schema.define(version: 20160612005135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,11 +96,12 @@ ActiveRecord::Schema.define(version: 20160116061907) do
     t.string   "color",      default: "blue",               null: false
     t.integer  "page_id",                                   null: false
     t.integer  "user_id",                                   null: false
-    t.boolean  "is_deleted", default: false,                null: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.integer  "state",      default: 0,                    null: false
   end
 
+  add_index "stickies", ["state"], name: "index_stickies_on_state", using: :btree
   add_index "stickies", ["user_id", "uuid"], name: "index_stickies_on_user_id_and_uuid", unique: true, using: :btree
 
   create_table "sticky_tags", force: :cascade do |t|
