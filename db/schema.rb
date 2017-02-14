@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -32,9 +31,8 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.string   "url"
     t.string   "image_url"
     t.string   "description"
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
   end
-
-  add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
@@ -45,9 +43,8 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.datetime "created_at",        null: false
     t.datetime "revoked_at"
     t.string   "scopes"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
   end
-
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
@@ -58,11 +55,10 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.datetime "revoked_at"
     t.datetime "created_at",        null: false
     t.string   "scopes"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
   end
-
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: :cascade do |t|
     t.string   "name",                      null: false
@@ -72,9 +68,8 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.string   "scopes",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
   end
-
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "title",      default: "", null: false
@@ -82,27 +77,25 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.integer  "user_id",                 null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["url", "user_id"], name: "by_url_each_user", unique: true, using: :btree
   end
-
-  add_index "pages", ["url", "user_id"], name: "by_url_each_user", unique: true, using: :btree
 
   create_table "stickies", force: :cascade do |t|
-    t.uuid     "uuid",       default: "uuid_generate_v4()"
-    t.integer  "width",      default: 0,                    null: false
-    t.integer  "height",     default: 0,                    null: false
-    t.integer  "left",       default: 0,                    null: false
-    t.integer  "top",        default: 0,                    null: false
-    t.text     "content",    default: "",                   null: false
-    t.string   "color",      default: "blue",               null: false
-    t.integer  "page_id",                                   null: false
-    t.integer  "user_id",                                   null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "state",      default: 0,                    null: false
+    t.uuid     "uuid",       default: -> { "uuid_generate_v4()" }, null: false
+    t.integer  "width",      default: 0,                           null: false
+    t.integer  "height",     default: 0,                           null: false
+    t.integer  "left",       default: 0,                           null: false
+    t.integer  "top",        default: 0,                           null: false
+    t.text     "content",    default: "",                          null: false
+    t.string   "color",      default: "blue",                      null: false
+    t.integer  "page_id",                                          null: false
+    t.integer  "user_id",                                          null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "state",      default: 0,                           null: false
+    t.index ["state"], name: "index_stickies_on_state", using: :btree
+    t.index ["user_id", "uuid"], name: "index_stickies_on_user_id_and_uuid", unique: true, using: :btree
   end
-
-  add_index "stickies", ["state"], name: "index_stickies_on_state", using: :btree
-  add_index "stickies", ["user_id", "uuid"], name: "index_stickies_on_user_id_and_uuid", unique: true, using: :btree
 
   create_table "sticky_tags", force: :cascade do |t|
     t.integer  "sticky_id"
@@ -116,9 +109,8 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "user_id"], name: "by_name_each_user", unique: true, using: :btree
   end
-
-  add_index "tags", ["name", "user_id"], name: "by_name_each_user", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                           null: false
@@ -130,9 +122,8 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.string   "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
 end
