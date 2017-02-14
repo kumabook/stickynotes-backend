@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   MEMBER = 'Member'
   ADMIN  = 'Admin'
   authenticates_with_sorcery! do |config|
