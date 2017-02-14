@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
-  enum type: {
-    member: 'Member',
-    admin: 'Admin'
-  }
+  MEMBER = 'Member'
+  ADMIN  = 'Admin'
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
@@ -20,4 +18,11 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
 
+  def admin?
+    type == ADMIN
+  end
+
+  def member?
+    type == MEMBER
+  end
 end

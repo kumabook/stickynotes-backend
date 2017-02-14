@@ -1,7 +1,7 @@
 # coding: utf-8
 
 user = User.first_or_create(email: 'stickynotes@gmail.com',
-                             type: User.types[:admin],
+                             type: User::ADMIN,
                          password: 'stickynotes',
             password_confirmation: 'stickynotes')
 
