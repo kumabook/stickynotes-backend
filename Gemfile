@@ -25,9 +25,10 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'purecss-rails', github: 'kumabook/purecss-rails'
 
+gem 'web-console', group: :development
+
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'pry-rails'
   gem 'pry-doc'
