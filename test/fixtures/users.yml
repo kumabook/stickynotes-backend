@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
-  crypted_password: MyString
+  email: stickynotes1@example.com
+  crypted_password: stickynotes1
   salt: MyString
 
 two:
-  email: MyString
-  crypted_password: MyString
+  email: stickynotes2@example.com
+  crypted_password: stickynotes2
   salt: MyString
