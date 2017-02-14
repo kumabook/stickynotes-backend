@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/Sorcery/sorcery.git
-  revision: fd48d561264e6560cd5ae3bdb135e4f70678c65e
-  specs:
-    sorcery (0.10.2)
-      bcrypt (~> 3.1)
-      oauth (~> 0.4, >= 0.4.4)
-      oauth2 (~> 1.0, >= 0.8.0)
-
-GIT
   remote: git://github.com/kumabook/purecss-rails.git
   revision: c6423188464e65063f601f849a500d98db9ea4c3
   specs:
@@ -188,6 +179,10 @@ GEM
       railties (>= 3.1)
       slim (~> 3.0)
     slop (3.6.0)
+    sorcery (0.10.2)
+      bcrypt (~> 3.1)
+      oauth (~> 0.4, >= 0.4.4)
+      oauth2 (~> 1.0, >= 0.8.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -241,7 +236,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   slim-rails
-  sorcery!
+  sorcery
   spring
   turbolinks
   uglifier (>= 1.3.0)
