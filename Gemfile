@@ -23,7 +23,7 @@ gem 'sorcery'
 gem 'kaminari'
 
 gem 'newrelic_rpm'
-gem 'purecss-rails', github: 'kumabook/purecss-rails'
+gem 'purecss-rails'
 
 gem 'web-console', group: :development
 
