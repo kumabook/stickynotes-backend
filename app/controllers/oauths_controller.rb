@@ -1,6 +1,4 @@
 class OauthsController < ApplicationController
-  skip_before_filter :require_login
-
   def oauth
     login_at(auth_params[:provider])
   end
@@ -21,13 +19,11 @@ class OauthsController < ApplicationController
       redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
     else
       begin
-        p "------------------create"
         @user = create_from(provider)
         reset_session
         auto_login(@user)
         redirect_to root_path, :notice => "Logged in from #{provider.titleize} first!"
       rescue => e
-        p e
         redirect_to root_path, :notice => "Failed to login from #{provider.titleize}!"
       end
     end
