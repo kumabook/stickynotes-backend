@@ -5,7 +5,8 @@ one:
   salt: <%= salt = "asdasdastr4325234324sdfds" %>
   crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt("stickynotes1", salt) %>
 
-two:
+admin:
   email: stickynotes2@example.com
   salt: <%= salt = "asdasdastr4325234324sdfds" %>
   crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt("stickynotes2", salt) %>
+  type: Admin
