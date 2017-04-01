@@ -28,7 +28,7 @@ class StickiesController < ApplicationController
 
   def create
     hash = sticky_params
-    hash['tags'] = hash['tags'].map {|t| Tag.find_by(id: t)}.compact
+    hash['tags'] = hash['tags']&.map {|t| Tag.find_by(id: t)}&.compact || []
     @sticky = Sticky.new(hash)
     @sticky.user = current_user
 
@@ -86,7 +86,7 @@ class StickiesController < ApplicationController
   def update
     respond_to do |format|
       hash = sticky_params
-      hash['tags'] = hash['tags'].map {|t| Tag.find_by(id: t)}.compact
+      hash['tags'] = hash['tags']&.map {|t| Tag.find_by(id: t)}&.compact || []
       if @sticky.update(hash)
         format.html {
           redirect_to sticky_path(@sticky),

@@ -2,10 +2,10 @@
 
 one:
   email: stickynotes1@example.com
-  crypted_password: stickynotes1
-  salt: MyString
+  salt: <%= salt = "asdasdastr4325234324sdfds" %>
+  crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt("stickynotes1", salt) %>
 
 two:
   email: stickynotes2@example.com
-  crypted_password: stickynotes2
-  salt: MyString
+  salt: <%= salt = "asdasdastr4325234324sdfds" %>
+  crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt("stickynotes2", salt) %>
