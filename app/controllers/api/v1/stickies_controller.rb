@@ -24,11 +24,11 @@ class Api::V1::StickiesController < Api::V1::ApiController
     normal  = Sticky.states[:normal]
     @stickies = stickies.map do |s|
       user = current_resource_owner
-      page = Page.find_or_create_by url: s['url'],
+      page = Page.find_or_create_by url:     s['url'],
                                     user_id: user.id do |p|
         p.title = s['title']
       end
-      sticky = Sticky.find_or_initialize_by uuid: s['uuid'],
+      sticky = Sticky.find_or_initialize_by uuid:    s['uuid'],
                                             page_id: page.id,
                                             user_id: user.id
       state = s['state']
@@ -37,18 +37,18 @@ class Api::V1::StickiesController < Api::V1::ApiController
       end
       sticky.update_attributes page_id: page.id,
                                user_id: user.id,
-                               color: s['color'],
+                               color:   s['color'],
                                content: s['content'],
-                               width: s['width'],
-                               height: s['height'],
-                               left: s['left'],
-                               top: s['top'],
-                               state: state
+                               width:   s['width'],
+                               height:  s['height'],
+                               left:    s['left'],
+                               top:     s['top'],
+                               state:   state
       s['tags'] && s['tags'].each do |name|
         tag = Tag.find_or_create_by name: name,
                                     user_id: user.id
-        sticky_tag = StickyTag.find_or_create_by sticky_id: sticky.id,
-                                                 tag_id: tag.id
+        StickyTag.find_or_create_by(sticky_id: sticky.id,
+                                    tag_id:    tag.id)
       end
       sticky
     end
