@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   resources :password_resets
   resources :stickies
-  resources :pages, except: :destroy do
+  resources :pages, except: [:new, :destroy] do
     resources :stickies
   end
   resources :tags, only: :index do
