@@ -35,16 +35,22 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user" do
+    @member = users(:one)
+    login_user(@member, login_url)
     get :show, params: { id: users(:one).id }
     assert_response :success
   end
 
   test "should get edit" do
+    @member = users(:one)
+    login_user(@member, login_url)
     get :edit, params: { id: users(:one).id }
     assert_response :success
   end
 
   test "should update user" do
+    @member = users(:one)
+    login_user(@member, login_url)
     patch :update, params: {
             id: users(:one).id,
             user: {
@@ -55,6 +61,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should destroy user" do
+    @member = users(:one)
+    login_user(@member, login_url)
     assert_difference('User.count', -1) do
       delete :destroy, params: { id: users(:one).id }
     end
