@@ -3,11 +3,15 @@ h1 Listing Pages
 table.pure-table
   thead
     tr
+      th Visual
       th Title
       th URL
   tbody
     - @pages.each do |page|
       tr
+        td
+          a href=page.visual_url
+            img src=page.visual_url height=50
         td = page.title.truncate(50)
         td = link_to page.url.truncate(15), page.url
         td = link_to 'Stickies', page_stickies_path(page)
