@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612005135) do
+ActiveRecord::Schema.define(version: 20170430053615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,11 +77,12 @@ ActiveRecord::Schema.define(version: 20160612005135) do
     t.integer  "user_id",                 null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "visual_url"
     t.index ["url", "user_id"], name: "by_url_each_user", unique: true, using: :btree
   end
 
   create_table "stickies", force: :cascade do |t|
-    t.uuid     "uuid",       default: -> { "uuid_generate_v4()" }, null: false
+    t.uuid     "uuid",       default: -> { "uuid_generate_v4()" }
     t.integer  "width",      default: 0,                           null: false
     t.integer  "height",     default: 0,                           null: false
     t.integer  "left",       default: 0,                           null: false
