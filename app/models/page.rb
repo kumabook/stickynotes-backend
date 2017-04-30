@@ -25,7 +25,10 @@ class Page < ApplicationRecord
   def self.update_visuals
     p Page.where(visual_url: nil).count
     Page.where(visual_url: nil).find_each do |page|
-      page.update_visual_url
+      begin
+        page.update_visual_url
+      rescue
+      end
     end
   end
 end
