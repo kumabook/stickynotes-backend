@@ -14,6 +14,7 @@ json.array!(@stickies) do |sticky|
   json.is_deleted sticky.deleted?
   json.url        sticky.page.url
   json.title      sticky.page.title
+  json.visual_url sticky.page.visual_url
   json.tags       sticky.tags.map {|t| t.name}
 end
 
