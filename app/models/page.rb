@@ -23,7 +23,6 @@ class Page < ApplicationRecord
   end
 
   def self.update_visuals
-    p Page.where(visual_url: nil).count
     Page.where(visual_url: nil).find_each do |page|
       begin
         page.update_visual_url

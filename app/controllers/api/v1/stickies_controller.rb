@@ -6,6 +6,9 @@ class Api::V1::StickiesController < Api::V1::ApiController
     if @page.nil?
       @stickies = Sticky.newer_than(params[:newer_than])
                         .where(user: current_resource_owner)
+                        .includes(:page)
+                        .includes(:tags)
+
       logger.info("User(id=#{current_resource_owner.id}) fetches #{@stickies.size} stickies.")
     else
       @stickies = Sticky.newer_than(params[:newer_than])
