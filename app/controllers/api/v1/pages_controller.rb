@@ -8,7 +8,11 @@ class Api::V1::PagesController < Api::V1::ApiController
   end
 
   def index
-    @pages = Page.where(user: current_user)
+    @pages = Page.where(user: current_resource_owner).newer_than(params[:newer_than])
+    respond_to do |format|
+      format.html
+      format.json { render :index, status: 200 }
+    end
   end
 
   def create

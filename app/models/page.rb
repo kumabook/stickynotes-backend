@@ -3,6 +3,9 @@ require 'rest_client'
 class Page < ApplicationRecord
   belongs_to :user
   has_many :stickies
+  scope :newer_than, -> since {
+    where('updated_at >= ?', Time.parse(since)) if since.present?
+  }
 
   def fetch_visual_url
     params   = { url: url };

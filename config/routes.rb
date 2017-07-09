@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get  '/me'       => 'credentials#me'
       get  '/stickies' => 'stickies#index'
       post '/stickies' => 'stickies#import'
+      get  '/pages'    => 'pages#index'
     end
   end
 
