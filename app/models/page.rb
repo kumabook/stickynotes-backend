@@ -23,7 +23,7 @@ class Page < ApplicationRecord
   end
 
   def self.update_visuals
-    Page.where(visual_url: nil).find_each do |page|
+    Page.where(visual_url: nil).order('created_at DESC').each do |page|
       begin
         page.update_visual_url
       rescue
