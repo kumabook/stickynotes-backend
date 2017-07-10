@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get  '/stickies' => 'stickies#index'
       post '/stickies' => 'stickies#import'
       get  '/pages'    => 'pages#index'
+      post '/users'    => 'users#create'
     end
   end
 
