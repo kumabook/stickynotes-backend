@@ -11,6 +11,9 @@ table.pure-table.pure-table-bordered
     tr
       th URL
       th = link_to @page.url.truncate(50), @page.url
+    tr
+      th Visual
+      th = image_tag(@page.visual_url || "", size: "100", alt: "no image")
 
 = link_to 'Stickies', page_stickies_path(@page), class: 'pure-button'
 = link_to 'Edit',     edit_page_path(@page), class: 'pure-button'

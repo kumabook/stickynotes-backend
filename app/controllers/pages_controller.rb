@@ -64,8 +64,7 @@ class PagesController < ApplicationController
 
   private
     def page_params
-      params.require(:page).permit(:title,
-                                   :url)
+      params.require(:page).permit(:title, :url, :visual_url)
     end
 
     def set_page
