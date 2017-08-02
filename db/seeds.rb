@@ -1,6 +1,6 @@
 # coding: utf-8
 
-user = User.first_or_create(email: 'stickynotes@gmail.com',
+user = User.first_or_create(email: 'stickynotes@outlook.jp',
                              type: User::ADMIN,
                          password: 'stickynotes',
             password_confirmation: 'stickynotes')
