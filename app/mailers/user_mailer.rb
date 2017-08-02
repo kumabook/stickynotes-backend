@@ -12,10 +12,8 @@ class UserMailer < ApplicationMailer
          subject: "Your password has been reset")
   end
 
-  def introduce_new_ios_app
+  def introduce_new_ios_app(user)
     subject = 'Introducing new StickyNotes iOS App'
-    mail(to:      StickynotesBackend::Application.config.sender_email,
-         bcc:     User.all.map {|user| user.email },
-         subject: subject)
+    mail(to: user.email, subject: subject)
   end
 end

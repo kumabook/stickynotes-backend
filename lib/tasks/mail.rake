@@ -1,3 +1,9 @@
 task :send_introduce_new_ios_app => :environment do
-  UserMailer.introduce_new_ios_app.deliver
+  User.all.each do |user|
+    begin
+      UserMailer.introduce_new_ios_app(user).deliver
+    rescue
+      puts "#{user.email} seems to be invalid"
+    end
+  end
 end
