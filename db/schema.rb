@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430053615) do
+ActiveRecord::Schema.define(version: 20170805001628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170430053615) do
   end
 
   create_table "stickies", force: :cascade do |t|
-    t.uuid     "uuid",       default: -> { "uuid_generate_v4()" }
+    t.uuid     "uuid",       default: -> { "uuid_generate_v4()" }, null: false
     t.integer  "width",      default: 0,                           null: false
     t.integer  "height",     default: 0,                           null: false
     t.integer  "left",       default: 0,                           null: false
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20170430053615) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                           null: false
+    t.string   "email",                                       null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170430053615) do
     t.string   "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
+    t.integer  "email_subscription_status",       default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   end

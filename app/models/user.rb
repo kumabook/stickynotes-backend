@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   MEMBER = 'Member'
   ADMIN  = 'Admin'
+  enum email_subscription_status: {
+         enabled:  0,
+         disabled: 1,
+       }, _prefix: :email_subscription
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
