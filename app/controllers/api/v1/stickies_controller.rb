@@ -31,9 +31,9 @@ class Api::V1::StickiesController < Api::V1::ApiController
                                     user_id: user.id do |p|
         p.title = s['title']
       end
-      sticky = Sticky.find_or_initialize_by uuid:    s['uuid'],
-                                            page_id: page.id,
-                                            user_id: user.id
+      sticky = Sticky.find_or_initialize_by(uuid: s['uuid'], user_id: user.id) do |v|
+        v.page_id = page.id
+      end
       state = s['state']
       if state.nil?
         state = s['is_deleted'] ? deleted : normal
