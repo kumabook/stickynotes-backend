@@ -5,7 +5,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by_email(params[:email])
     @user = @user.becomes(User) if @user
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(root_path, :notice => 'Instructions have been sent to your email.')
+    redirect_to(new_password_reset_path, :notice => 'Instructions have been sent to your email.')
   end
 
   def edit
