@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     if current_user&.admin?
       @user = User.find(params[:id]).becomes(User)
     else
-      @user = current_user
+      @user = current_user.becomes(User)
     end
   end
 
