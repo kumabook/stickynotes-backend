@@ -18,6 +18,7 @@ gem 'puma'
 gem 'bcrypt'
 gem 'slim-rails'
 gem 'responders', '~> 2.0'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'doorkeeper'
 gem 'sorcery'
