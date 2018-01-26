@@ -13,6 +13,20 @@ class Api::V1::StickiesControllerTest < ActionDispatch::IntegrationTest
                          password: @password,
                          password_confirmation: @password,
                          type: Member.name)
+    @page   = Page.create!(title:     'title',
+                           url:       'https://example.com',
+                           user_id:   @user.id,
+                           visual_url: nil)
+    @sticky = Sticky.create!(uuid:    SecureRandom.uuid,
+                             content: 'content',
+                             color:   'red',
+                             width:   100,
+                             height:  100,
+                             left:    100,
+                             top:     100,
+                             page_id: @page.id,
+                             user_id: @user.id,
+                             state:   0)
     post '/oauth/token.json', params: {
            grant_type:    'password',
            client_id:     @application.uid,

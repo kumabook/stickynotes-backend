@@ -16,7 +16,7 @@ class Api::V1::StickiesController < Api::V1::ApiController
     end
     respond_to do |format|
       format.html
-      format.json { render :index, status: 200 }
+      format.json { render json: @stickies }
     end
   end
 
