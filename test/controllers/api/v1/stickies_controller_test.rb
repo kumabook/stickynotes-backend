@@ -27,6 +27,8 @@ class Api::V1::StickiesControllerTest < ActionDispatch::IntegrationTest
                              page_id: @page.id,
                              user_id: @user.id,
                              state:   0)
+    @tag = @sticky.tags.create!(name: "tag",
+                                user_id: @user.id)
     post '/oauth/token.json', params: {
            grant_type:    'password',
            client_id:     @application.uid,

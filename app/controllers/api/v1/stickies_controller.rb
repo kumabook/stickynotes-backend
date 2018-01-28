@@ -3,20 +3,29 @@ class Api::V1::StickiesController < Api::V1::ApiController
   respond_to    :json
 
   def index
-    if @page.nil?
-      @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(user: current_resource_owner)
-                        .includes(:page)
-                        .includes(:tags)
-
-      logger.info("User(id=#{current_resource_owner.id}) fetches #{@stickies.size} stickies.")
-    else
-      @stickies = Sticky.newer_than(params[:newer_than])
-                        .where(page: @page.id)
+    con = ActiveRecord::Base.connection
+    sticky_sql = Sticky.newer_than(params[:newer_than])
+                       .where(user: current_resource_owner).to_sql
+    items = con.select_all(sticky_sql).to_hash
+    page_sql = Page.where(id: items.map {|i| i["page_id"] }).to_sql
+    pages = con.select_all(page_sql).to_hash
+    tag_sql = Tag.eager_load(:sticky_tags)
+                 .where(sticky_tags: { sticky_id: items.map {|i| i["id"] }}).to_sql
+    tags = con.select_all(tag_sql).to_hash.map do |h|
+      {
+        "id"         => h["t0_r0"],
+        "name"       => h["t0_r1"],
+        "user_id"    => h["t0_r2"],
+        "created_at" => h["t0_r3"],
+        "updated_at" => h["t0_r4"],
+        "sticky_id"  => h["t1_r1"],
+      }
     end
+    stickies = Sticky.normalize_items(items, pages, tags)
+    logger.info("User(id=#{current_resource_owner.id}) fetches #{stickies.size} stickies.")
     respond_to do |format|
       format.html
-      format.json { render json: @stickies }
+      format.json { render json: stickies }
     end
   end
 
