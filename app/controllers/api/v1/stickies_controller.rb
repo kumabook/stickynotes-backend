@@ -1,5 +1,6 @@
 class Api::V1::StickiesController < Api::V1::ApiController
   before_action :doorkeeper_authorize!
+  after_action :touch_user, only: [:import]
   respond_to    :json
 
   def index
@@ -94,5 +95,9 @@ class Api::V1::StickiesController < Api::V1::ApiController
                              :state,
                              :is_deleted,
                              tags: []])
+  end
+
+  def touch_user
+    current_resource_owner.touch
   end
 end
