@@ -20,8 +20,6 @@ class Sticky < ApplicationRecord
     h["visual_url"] = page.visual_url
     h["page"]       = page
     h["tags"]       = tags.map {|t| t.name}
-    h["created_at"] = Time.parse(h["created_at"]).iso8601
-    h["updated_at"] = Time.parse(h["updated_at"]).iso8601
     h.delete("page_id")
     h
   end
@@ -37,6 +35,8 @@ class Sticky < ApplicationRecord
       h["visual_url"] = page["visual_url"]
       h["page"]       = page
       h["tags"]       = tag_names
+      h["created_at"] = Time.parse(h["created_at"]).as_json
+      h["updated_at"] = Time.parse(h["updated_at"]).as_json
       h.delete("page_id")
       h
     end
