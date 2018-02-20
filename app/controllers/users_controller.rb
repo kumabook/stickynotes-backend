@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @stickies_count = Sticky.count
+    @active_user_count = User.where(updated_at: 1.day.ago..Time.now).count
     @users = User.bonzo(params[:bonzo]).includes(:oauth_access_tokens)
   end
 
