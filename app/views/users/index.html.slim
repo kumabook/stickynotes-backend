@@ -8,7 +8,8 @@ table.pure-table
       th Email
       th Type
       th Registration date
-      th active
+      th Active
+      th Last synced date
       th
       th
       th
@@ -22,6 +23,7 @@ table.pure-table
         td = user.type
         td = user.created_at
         td = (1.day.ago..Time.now).member? user.updated_at
+        td = user.updated_at
         td = "#{user.stickies.size} stickies"
         td = "#{user.oauth_access_tokens.size} tokens"
         td = link_to 'Show', user.becomes(User)
