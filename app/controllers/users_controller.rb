@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   def index
     @stickies_count = Sticky.count
     @active_user_count = User.where(updated_at: 1.day.ago..Time.now).count
-    @users = User.bonzo(params[:bonzo]).includes(:oauth_access_tokens)
+    @users = User.order(updated_at: :desc)
+                 .bonzo(params[:bonzo])
+                 .includes(:oauth_access_tokens)
   end
 
   # GET /users/1
