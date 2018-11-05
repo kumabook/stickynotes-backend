@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.3'
+ruby '2.5.3'
 
 gem 'coveralls', require: false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
