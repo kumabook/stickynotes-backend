@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   use_doorkeeper
+  get 'healthcheck' => 'healthcheck#ping'
   namespace :api, format: 'json' do
     namespace :v1 do
       get  '/me'       => 'credentials#me'
