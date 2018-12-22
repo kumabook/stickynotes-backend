@@ -7,9 +7,7 @@ default: &default
 
 development:
   <<: *default
-  database: stickynotes_backend_development_<%=
-    `git symbolic-ref --short HEAD`
-  %>
+  database: stickynotes_backend_development
 test:
   <<: *default
   database: stickynotes_backend_test
