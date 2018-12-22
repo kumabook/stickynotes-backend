@@ -4,7 +4,7 @@ ruby '2.5.3'
 gem 'coveralls', require: false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
-gem 'rails_12factor', group: :production
+gem 'rails_serve_static_assets', group: :production
 
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
