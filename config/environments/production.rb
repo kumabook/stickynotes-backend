@@ -60,16 +60,16 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method       = :smtp
   config.action_mailer.smtp_settings         = {
-                 address:'smtp.sendgrid.net',
+                 address:'smtp-mail.outlook.com',
                     port: 587,
-          authentication: 'plain',
-                  domain: 'heroku.com',
-               user_name: ENV['SENDGRID_USERNAME'],
-                password: ENV['SENDGRID_PASSWORD'],
+          authentication: 'login',
+                  domain: 'outlook.com',
+               user_name: ENV['SMTP_USERNAME'],
+                password: ENV['SMTP_PASSWORD'],
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = {
-    host: 'stickynotes-backend.herokuapp.com',
+    host: 'stickynotes.kumabook.tokyo',
     from: 'stickynotes@outlook.jp'
   }
 
