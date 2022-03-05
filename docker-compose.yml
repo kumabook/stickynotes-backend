@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+    db:
+        image: "postgres:10"
+        environment:
+            - "POSTGRES_PASSWORD=stickynotes"
+            - "POSTGRES_USER=stickynotes"
+            - "POSTGRES_DB=stickynotes"
+        volumes:
+            - "./pg_data:/var/lib/postgresql/data"
+    stickynotes:
+        build: "."
+        ports: 
+            - "3000:3000"
+        depends_on:
+            - db
+        environment:
+            - RAILS_ENV=production
+            - SECRET_KEY_BASE=e13e6c16954bfa1d542cd20108a35b7dce7b034f8dfc575d7c165192ece88cf34dabc428f68b52bdc690133224869608c42076ffdf910d43837dc03d2e3eccb4
+            - RDS_DB_NAME=stickynotes
+            - RDS_USERNAME=stickynotes
+            - RDS_PASSWORD=stickynotes
+            - RDS_HOSTNAME=db
+            - RDS_PORT=5432
+            - RAILS_LOG_TO_STDOUT=true
